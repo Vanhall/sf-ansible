@@ -1,0 +1,16 @@
+---
+# tasks file for vsftpd
+- name: install package
+  apt:
+    name: vsftpd
+    state: present
+  notify:
+  - start service
+
+- name: enable uploads
+  lineinfile:
+    path: /etc/vsftpd.conf
+    regexp: "^#write_enable=.*"
+    line: "write_enable=YES"
+  notify:
+  - restart service

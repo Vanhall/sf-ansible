@@ -1,0 +1,37 @@
+---
+- hosts: ubuntu
+  gather_facts: false
+  tasks:
+    - name: Install Postfix
+      apt:
+        name: postfix
+        state: latest
+      become: true
+      tags:
+      - init postfix
+
+    - name: Start Postfix
+      service:
+        name: postfix
+        state: started
+        enabled: yes
+      become: true
+      tags:
+      - init postfix
+
+    - name: Stop Postfix
+      service:
+        name: postfix
+        state: stopped
+        enabled: no
+      become: true
+      tags:
+      - drop postfix
+
+    - name: Remove Postfix
+      apt:
+        name: postfix
+        state: absent
+      become: true
+      tags:
+      - drop postfix

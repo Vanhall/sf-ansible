@@ -1,0 +1,30 @@
+---
+- hosts: ubuntu
+  gather_facts: false
+  tasks:
+  - name: Create User1
+    user:
+      name: user1
+      state: present
+      create_home: true
+    become: true
+
+  - name: Create SSH Directory
+    file:
+      path: /home/user1/.ssh
+      state: directory
+      owner: user1
+      group: user1
+      mode: 755
+    become: true
+
+  - name: Copy SSH key
+    copy:
+      src: user1.key.pub
+      dest: /home/user1/.ssh/id_rsa.pub
+      decrypt: true
+      owner: user1
+      group: user1
+      mode: 400
+      backup: false
+    become: true

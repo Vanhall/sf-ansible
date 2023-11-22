@@ -1,3 +1,4 @@
 ---
 # defaults file for nginx
+document_root: /var/www/html
 php_fpm_address: "158.160.24.249:9000"

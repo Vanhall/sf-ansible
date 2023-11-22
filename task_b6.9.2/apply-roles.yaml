@@ -1,0 +1,9 @@
+---
+- hosts: ubuntu
+  gather_facts: no
+  become: yes
+  vars:
+    document_root: /opt/nginx/ansible
+  roles:
+    - dnsmasq
+    - web

@@ -1,0 +1,18 @@
+---
+# tasks file for dnsmasq
+- name: install service
+  apt:
+    name: dnsmasq
+    state: present
+
+- name: change listen port
+  lineinfile:
+    path: /etc/dnsmasq.conf
+    regex: "^#port=.*"
+    line: "port=69"
+
+- name: start and enable service
+  service:
+    name: dnsmasq
+    state: started
+    enabled: yes

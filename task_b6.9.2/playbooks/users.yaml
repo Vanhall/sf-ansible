@@ -1,0 +1,27 @@
+---
+- hosts: ubuntu
+  gather_facts: no
+  become: yes
+  vars:
+    sudoers:
+      - user2
+      - user3
+  tasks:
+    - name: Create Group
+      group:
+        name: superusers
+        state: present
+
+    - name: Allow Group to Sudo
+      community.general.sudoers:
+        name: allow-superusers
+        group: superusers
+        commands: ALL
+        validation: required
+
+    - name: Add Users
+      user:
+        name: "{{ item }}"
+        groups: superusers
+        create_home: yes
+      with_items: "{{ sudoers }}"

@@ -1,0 +1,11 @@
+---
+# tasks file for deploy_test_page
+- name: Ensure document_root exists
+  file:
+    path: "{{ document_root }}"
+    state: directory
+
+- name: Deploy website
+  copy:
+    src: "index.php"
+    dest: "{{ document_root }}"

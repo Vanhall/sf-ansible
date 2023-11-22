@@ -1,0 +1,15 @@
+---
+# tasks file for nginx
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: latest
+  notify:
+    - start nginx
+
+- name: Update Nginx config
+  template:
+    src: "default.j2"
+    dest: /etc/nginx/sites-available/default
+  notify:
+    - restart nginx

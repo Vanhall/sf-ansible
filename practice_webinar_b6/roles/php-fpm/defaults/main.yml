@@ -1,0 +1,3 @@
+---
+# defaults file for php-fpm
+allowed_client_address: "84.201.177.94"

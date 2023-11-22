@@ -1,0 +1,24 @@
+---
+# tasks file for php-fpm
+- name: Install php-fpm
+  apt:
+    name: php8.1-fpm
+    state: present
+  notify:
+    - start php-fpm
+
+- name: Set Allowed Clients
+  lineinfile:
+    path: "/etc/php/8.1/fpm/pool.d/www.conf"
+    regex: "^;listen.allowed_clients = .*"
+    line: "listen.allowed_clients = {{ allowed_client_address }}"
+  notify:
+    - restart php-fpm
+
+- name: Set Listen Port
+  lineinfile:
+    path: "/etc/php/8.1/fpm/pool.d/www.conf"
+    regex: "^listen = .*"
+    line: "listen = 9000"
+  notify:
+    - restart php-fpm

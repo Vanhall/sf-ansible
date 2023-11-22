@@ -1,0 +1,19 @@
+---
+# Если правильно понял при разносе nginx и php на разные машины,
+# php страница должна существовать на обоих серверах в одной
+# и той же директории.
+- hosts: nginx
+  gather_facts: false
+  become: yes
+  roles:
+    - users
+    - deploy_test_page
+    - http
+
+- hosts: php
+  gather_facts: false
+  become: yes
+  roles:
+    - users
+    - deploy_test_page
+    - php-fpm

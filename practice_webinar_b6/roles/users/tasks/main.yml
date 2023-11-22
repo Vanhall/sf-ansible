@@ -1,0 +1,14 @@
+---
+# tasks file for user
+- name: Create User
+  user:
+    name: user1
+    state: present
+    password: "{{ user_pass }}"
+
+- name: Deploy SSH key
+  authorized_key:
+    user: user1
+    state: present
+    key: "{{ lookup('file', '/home/vanhall/.ssh/user1.key.pub') }}"
+    path: /home/user1/.ssh/id_rsa.pub

@@ -1,0 +1,3 @@
+---
+# defaults file for deploy_test_page
+document_root: /var/www/html

@@ -1,0 +1,38 @@
+---
+- hosts: app
+  gather_facts: true
+  become: true
+  tasks:
+    - name: Install Docker on Ubuntu
+      apt:
+        name: docker
+        state: present
+      when:
+        - ansible_facts['distribution'] == 'Ubuntu'
+
+    - name: Install Docker on CentOS
+      yum:
+        name: docker
+        state: present
+      when:
+        - ansible_facts['distribution'] == 'CentOS'
+
+- hosts: database
+  gather_facts: false
+  become: true
+  tasks:
+    - name: Install PostgreSQL
+      apt:
+        name: "postgresql-{{ version }}"
+        state: present
+
+    - name: Set Data Dir
+      lineinfile:
+        path: "/etc/postgresql/{{ version }}/main/postgresql.conf"
+        regex: "^data_directory = .*"
+        line: "data_directory = '{{ data_dir }}'"
+
+    - name: Start PostgreSQL
+      service:
+        name: postgresql
+        state: started

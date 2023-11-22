@@ -1,0 +1,13 @@
+[app]
+158.160.80.12
+158.160.75.109
+
+[database]
+localhost ansible_connection=local
+
+[database:vars]
+version=12
+data_dir=/usr/local/pgsql/data
+
+[web]
+localhost ansible_connection=local
